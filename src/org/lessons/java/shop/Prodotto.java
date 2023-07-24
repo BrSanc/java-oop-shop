@@ -1,6 +1,8 @@
 package org.lessons.java.shop;
 
 
+import java.text.DecimalFormat;
+import java.util.HashSet;
 import java.util.Random;
 
 
@@ -11,12 +13,15 @@ public class Prodotto {
     private double price;
     private int iva;
 
+    private HashSet<Category> categories;
+
     //---------------------COSTRUTTORI-------------
     Random random = new Random();
+    DecimalFormat d = new DecimalFormat("#.##");
 
 
     public Prodotto(String name, String description, double price, int iva) {
-        this.code = random.nextInt(1, 100000000);;
+        this.code = generatedCode();
         this.name = name;
         this.description = description;
         this.price = price;
@@ -47,6 +52,10 @@ public class Prodotto {
         return price;
     }
 
+    public HashSet<Category> getCategories() {
+        return categories;
+    }
+
     //-----------------Setter---------------------
 
     public void setName(String name) {
@@ -65,6 +74,10 @@ public class Prodotto {
         this.iva = iva;
     }
 
+    public void setCategories(HashSet<Category> categories) {
+        this.categories = categories;
+    }
+
     //--------------------------Metodi----------------------------------------
 
     //Il prodotto esponga sia un metodo per avere il prezzo base che uno per avere il prezzo comprensivo di iva
@@ -72,6 +85,11 @@ public class Prodotto {
     // il codice deve avere un pad left di zeri per arrivare a 8 caratteri
     // (ad esempio codice 91 diventa 00000091, mentre codice 123445567 resta come è)
 
+
+    private int generatedCode(){
+        int generatedCode = random.nextInt(1, 100000000);
+        return generatedCode;
+    }
 
     public double pricePlusIVA(){
         double ivaPrice = (price / 100) * iva;
